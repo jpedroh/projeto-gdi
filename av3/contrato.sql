@@ -4,5 +4,5 @@ CREATE TABLE contrato (
     data_de_assinatura date,
     cpf_funcionario varchar2(11),
     CONSTRAINT contrato_pkey PRIMARY KEY (numero),
-    CONSTRAINT cpf_funcionario_fkey FOREIGN KEY (cpf_funcionario) REFERENCES funcionario (pessoa_cpf)
+    CONSTRAINT contrato_fkey FOREIGN KEY (cpf_funcionario) REFERENCES funcionario (cpf)
 );

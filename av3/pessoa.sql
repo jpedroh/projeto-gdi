@@ -6,7 +6,7 @@ CREATE TABLE pessoa (
     endereco_numero integer,
     endereco_complemento varchar2(15),
     CONSTRAINT pessoa_pkey PRIMARY KEY (cpf),
-    CONSTRAINT endereco_cep_fkey FOREIGN KEY (endereco_cep) REFERENCES endereco (cep)
+    CONSTRAINT pessoa_fkey FOREIGN KEY (endereco_cep) REFERENCES endereco (cep)
 );
 
 INSERT INTO pessoa VALUES ('03176487532', 'Ricardo', TO_DATE('14-03-1962', 'dd-mm-yyyy'), '50740445', 82, 'Apt 201');

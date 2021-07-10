@@ -5,5 +5,5 @@ CREATE TABLE funcionario(
     cpf_supervisor varchar2(11),
     CONSTRAINT funcionario_pkey PRIMARY KEY (cpf),
     CONSTRAINT funcionario_fkey1 FOREIGN KEY (cpf) REFERENCES pessoa (cpf),
-    CONSTRAINT funcionario_fkey1 FOREIGN KEY (cpf_supervisor) REFERENCES funcionario (cpf) 
+    CONSTRAINT funcionario_fkey2 FOREIGN KEY (cpf_supervisor) REFERENCES funcionario (cpf) 
 );
