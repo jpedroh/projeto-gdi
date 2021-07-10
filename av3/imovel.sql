@@ -8,5 +8,6 @@ CREATE TABLE imovel (
     cpf_proprietario varchar2(11),
     CONSTRAINT imovel_pkey PRIMARY KEY (cod_escritura),
     CONSTRAINT cpf_proprietario_fkey FOREIGN KEY (cpf_proprietario) REFERENCES proprietario (pessoa_cpf),
-    CONSTRAINT endereco_cep_fkey FOREIGN KEY (endereco_cep) REFERENCES endereco (cep)
+    CONSTRAINT endereco_cep_fkey FOREIGN KEY (endereco_cep) REFERENCES endereco (cep),
+    CONSTRAINT imovel_check CHECK (valor_do_aluguel > 0.0)
 );
