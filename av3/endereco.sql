@@ -15,3 +15,8 @@ INSERT INTO endereco VALUES ('51011061', 'Rua Vila Alegre', 'Pina');
 INSERT INTO endereco VALUES ('51160350', 'Rua José da Silva Lucena', 'Imbiribeira');
 INSERT INTO endereco VALUES ('51345520', 'Rua Bom Jardim', 'COHAB');
 INSERT INTO endereco VALUES ('50630974', 'Avenida General San Martin', 'Cordeiro');
+INSERT INTO endereço VALUES ('56789000', 'Alameda das Palmeiras', 'Enseada');
+INSERT INTO endereço VALUES ('90730974', 'Rua dos Jiquiás', 'Belo Novo');
+INSERT INTO endereço VALUES ('50635374', 'Rua das Garças', 'Jardim Molhado');
+INSERT INTO endereço VALUES ('50630984', 'Avenida José Maranhão', 'Paulistinha');
+INSERT INTO endereço VALUES ('56800000', 'Alameda das Araras', 'Enseada');

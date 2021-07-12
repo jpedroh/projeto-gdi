@@ -64,7 +64,7 @@ CREATE TABLE funcionario(
 );
 
 CREATE TABLE imovel (
-    cod_escritura varchar2(20),
+    cod_escritura varchar2(10),
     taxa_de_corretagem integer,
     valor_do_aluguel decimal(7,2),
     endereco_cep varchar2(8),
@@ -87,7 +87,7 @@ CREATE TABLE contrato (
 );
 
 CREATE TABLE aluga (
-    cod_escritura varchar2(20),
+    cod_escritura varchar2(10),
     cpf_inquilino varchar2(11),
     num_contrato integer,
     data_aluguel date,
@@ -97,7 +97,7 @@ CREATE TABLE aluga (
     CONSTRAINT aluga_fkey3 FOREIGN KEY (num_contrato) REFERENCES contrato (numero)
 );
 
-CREATE SEQUENCE id_sequence INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE bonificacao_id_sequence INCREMENT BY 1 START WITH 1;
 
 CREATE TABLE bonificacao(
     id integer,

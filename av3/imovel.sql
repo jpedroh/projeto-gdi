@@ -1,5 +1,5 @@
 CREATE TABLE imovel (
-    cod_escritura varchar2(20),
+    cod_escritura varchar2(10),
     taxa_de_corretagem integer,
     valor_do_aluguel decimal(7,2),
     endereco_cep varchar2(8),
