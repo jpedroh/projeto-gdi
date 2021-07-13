@@ -24,8 +24,8 @@ SELECT E.rua, E.bairro, I.numero, I.complemento FROM imovel as I INNER JOIN ende
 /* Listar nome, cpf e função dos funcionários que não possuem um supervisor atrelado */
 SELECT nome, cpf, funcao FROM funcionario WHERE cpf_supervisor IS NULL;
 
-/* Listar nome do proprietário com imóvel de menor aluguel */
-SELECT P.nome, MIN(I.valor_do_aluguel) as menor_valor FROM pessoa as P, imovel as I WHERE P.cpf = I.cpf_proprietario; 
+/* Listar nome e CPF do proprietário com imóvel de menor aluguel */
+SELECT P.nome, P.cpf FROM pessoa P WHERE P.cpf = (SELECT cpf_proprietario FROM imovel WHERE valor_do_aluguel = (SELECT MIN(valor_do_aluguel) FROM imovel));
 
 /* Listar quanto ganha cada proprietário */
 SELECT SUM(*) as total_gain, P.nome, P.cpf from contrato as C, imovel as I, Pessoa as P WHERE C.cpf_funcionario = I.cpf_funcionario AND P.cpf = C.cpf_funcionario GROUP BY P.cpf ORDER BY total_gain DESC;
