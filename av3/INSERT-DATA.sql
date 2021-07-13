@@ -2,7 +2,7 @@
 INSERT INTO endereco VALUES ('50740445', 'Rua Visconde de Barbacena', 'Varzea');
 INSERT INTO endereco VALUES ('51011330', 'Rua João Bandeira de Melo', 'Pina');
 INSERT INTO endereco VALUES ('50910510', 'Rua Professor Pedro Augusto', 'Manaira');
-INSERT INTO endereco VALUES ('51010450', 'Travessa Albacora', 'Brasília Teimosa');
+INSERT INTO endereco VALUES ('51010450', 'Travessa Albacora', 'Pina');
 INSERT INTO endereco VALUES ('50620491', 'Rua Piranhas', 'Torre');
 INSERT INTO endereco VALUES ('50790901', 'Rua Leandro Barreto', 'Manaira');
 INSERT INTO endereco VALUES ('51011061', 'Rua Vila Alegre', 'Pina');
@@ -36,18 +36,18 @@ INSERT INTO pessoa VALUES ('99941481091', 'João', TO_DATE('25-10-2001', 'dd-mm-
 INSERT INTO pessoa VALUES ('19276748083', 'Pedro', TO_DATE('25-10-1969', 'dd-mm-yyyy'), '50635374', 242, NULL);
 INSERT INTO pessoa VALUES ('08978954014', 'Gabriel', TO_DATE('25-10-1949', 'dd-mm-yyyy'), '50630984', 111, 'Apt 1234');
 /* FUNCIONÁRIOS QUE SÃO SUPERVISORES */
-INSERT INTO pessoa VALUES ('37383978099', 'Maria', TO_DATE('25-10-1980', 'dd-mm-yyyy'), '5680000', 121, 'Casa');
-INSERT INTO pessoa VALUES ('41893520048', 'Clara', TO_DATE('25-10-1969', 'dd-mm-yyyy'), '5680000', 000, NULL);
+INSERT INTO pessoa VALUES ('37383978099', 'Maria', TO_DATE('25-10-1980', 'dd-mm-yyyy'), '56800000', 121, 'Casa');
+INSERT INTO pessoa VALUES ('41893520048', 'Clara', TO_DATE('25-10-1969', 'dd-mm-yyyy'), '56800000', 000, NULL);
 INSERT INTO pessoa VALUES ('23251067052', 'Letícia', TO_DATE('25-10-2001', 'dd-mm-yyyy'), '56789000', 100, 'Segundo andar');
 /* PESSOAS_INQUILINOS */
-INSERT INTO pessoa VALUES ('15069931091', 'Rodolfo', TO_DATE('25-10-1968', 'dd-mm-yyyy'), '5680000', 121, 'Casa');
-INSERT INTO pessoa VALUES ('75477832010', 'Antonio', TO_DATE('25-10-1987', 'dd-mm-yyyy'), '5680000', 000, NULL);
+INSERT INTO pessoa VALUES ('15069931091', 'Rodolfo', TO_DATE('25-10-1968', 'dd-mm-yyyy'), '56800000', 121, 'Casa');
+INSERT INTO pessoa VALUES ('75477832010', 'Antonio', TO_DATE('25-10-1987', 'dd-mm-yyyy'), '56800000', 000, NULL);
 INSERT INTO pessoa VALUES ('45851424010', 'João', TO_DATE('25-10-1978', 'dd-mm-yyyy'), '56789000', 100, 'Segundo andar');
-INSERT INTO pessoa VALUES ('38120912080', 'Maria', TO_DATE('25-10-1980', 'dd-mm-yyyy'), '5680000', 121, 'Casa');
-INSERT INTO pessoa VALUES ('10217341012', 'Rodrigo', TO_DATE('25-10-1978', 'dd-mm-yyyy'), '5680000', 000, NULL);
+INSERT INTO pessoa VALUES ('38120912080', 'Maria', TO_DATE('25-10-1980', 'dd-mm-yyyy'), '56800000', 121, 'Casa');
+INSERT INTO pessoa VALUES ('10217341012', 'Rodrigo', TO_DATE('25-10-1978', 'dd-mm-yyyy'), '56800000', 000, NULL);
 INSERT INTO pessoa VALUES ('92027748032', 'Pietro', TO_DATE('25-10-1974', 'dd-mm-yyyy'), '56789000', 100, 'Segundo andar');
-INSERT INTO pessoa VALUES ('71033122068', 'Maria', TO_DATE('25-10-1980', 'dd-mm-yyyy'), '5680000', 121, 'Casa');
-INSERT INTO pessoa VALUES ('98643394009', 'Fernanda', TO_DATE('25-10-1955', 'dd-mm-yyyy'), '5680000', 000, NULL);
+INSERT INTO pessoa VALUES ('71033122068', 'Maria', TO_DATE('25-10-1980', 'dd-mm-yyyy'), '56800000', 121, 'Casa');
+INSERT INTO pessoa VALUES ('98643394009', 'Fernanda', TO_DATE('25-10-1955', 'dd-mm-yyyy'), '56800000', 000, NULL);
 INSERT INTO pessoa VALUES ('96458502079', 'Núbia', TO_DATE('25-10-1981', 'dd-mm-yyyy'), '56789000', 100, 'Segundo andar');
 /* PROPRIETÁRIOS */
 INSERT INTO proprietario VALUES ('03176487532', 1726, 1433, 360);
@@ -95,21 +95,6 @@ INSERT INTO telefones VALUES ('03186390274', '6435524534');
 INSERT INTO telefones VALUES ('03182639412', '1111111111');
 INSERT INTO telefones VALUES ('81335003529', '1231423432');
 
-/* CONTRATOS */
-INSERT INTO contrato VALUES (3543, TO_DATE('25-10-2030', 'dd-mm-yyyy'), TO_DATE('25-10-2023', 'dd-mm-yyyy'), '51927985072');
-INSERT INTO contrato VALUES (8272, TO_DATE('25-10-2025', 'dd-mm-yyyy'), TO_DATE('25-05-2016', 'dd-mm-yyyy'), '51927985072');
-INSERT INTO contrato VALUES (6526, TO_DATE('25-10-2022', 'dd-mm-yyyy'), TO_DATE('01-05-2016', 'dd-mm-yyyy'), '51927985072');
-INSERT INTO contrato VALUES (2393, TO_DATE('25-10-2022', 'dd-mm-yyyy'), TO_DATE('01-05-2009', 'dd-mm-yyyy'), '51927985072');
-INSERT INTO contrato VALUES (5932, TO_DATE('25-10-2030', 'dd-mm-yyyy'), TO_DATE('01-09-2009', 'dd-mm-yyyy'), '51927985072');
-INSERT INTO contrato VALUES (5121, TO_DATE('25-10-2030', 'dd-mm-yyyy'), TO_DATE('01-09-2020', 'dd-mm-yyyy'), '51927985072');
-INSERT INTO contrato VALUES (2285, TO_DATE('25-10-2030', 'dd-mm-yyyy'), TO_DATE('25-10-2025', 'dd-mm-yyyy'), '51927985072');
-INSERT INTO contrato VALUES (8105, TO_DATE('25-10-2040', 'dd-mm-yyyy'), TO_DATE('30-10-2018', 'dd-mm-yyyy'), '89712208052');
-INSERT INTO contrato VALUES (8285, TO_DATE('25-10-2040', 'dd-mm-yyyy'), TO_DATE('30-11-2030', 'dd-mm-yyyy'), '89712208052');
-INSERT INTO contrato VALUES (7170, TO_DATE('25-10-2040', 'dd-mm-yyyy'), TO_DATE('30-11-2019', 'dd-mm-yyyy'), '89712208052');
-INSERT INTO contrato VALUES (1464, TO_DATE('25-10-2056', 'dd-mm-yyyy'), TO_DATE('30-11-2049', 'dd-mm-yyyy'), '89712208052');
-INSERT INTO contrato VALUES (6524, TO_DATE('25-10-2056', 'dd-mm-yyyy'), TO_DATE('30-12-2019', 'dd-mm-yyyy'), '89712208052');
-INSERT INTO contrato VALUES (4282, TO_DATE('25-10-2056', 'dd-mm-yyyy'), TO_DATE('30-12-2021', 'dd-mm-yyyy'), '89712208052');
-
 /* IMÓVEIS */
 INSERT INTO imovel VALUES ('3993258644', 10, 2000.00, '56800000', 207, 'Casa', '03176487532');
 INSERT INTO imovel VALUES ('6646303088', 5, 1500.00, '54440020', 1019, 'Primeiro Andar', '03178903746');
@@ -127,41 +112,20 @@ INSERT INTO imovel VALUES ('7152964085', 3, 2900.00, '58703210', 12, 'Bloco A', 
 INSERT INTO imovel VALUES ('5504615237', 2, 400.00, '54520697', 99, 'Casa', '58961248956');
 INSERT INTO imovel VALUES ('4794574729', 1, 450.00, '56503451', 1010, 'Casa', '96759856791');
 
-/* PERFIS */
-INSERT INTO perfis VALUES ('3993258644', 'Familiar');
-INSERT INTO perfis VALUES ('3993258644', 'Aventureiro');
-INSERT INTO perfis VALUES ('3993258644', 'Espaçoso');
-INSERT INTO perfis VALUES ('3993258644', 'Rústico');
-INSERT INTO perfis VALUES ('6646303088', 'Festivo');
-INSERT INTO perfis VALUES ('6646303088', 'Familiar');
-INSERT INTO perfis VALUES ('3471019961', 'Espaçoso');
-INSERT INTO perfis VALUES ('3471019961', 'Rústico');
-INSERT INTO perfis VALUES ('5504615237', 'Familiar');
-INSERT INTO perfis VALUES ('5504615237', 'Aventureiro');
-INSERT INTO perfis VALUES ('5504615237', 'Rústico');
-INSERT INTO perfis VALUES ('4794574729', 'Familiar');
-INSERT INTO perfis VALUES ('8574634983', 'Aventureiro');
-INSERT INTO perfis VALUES ('8574634983', 'Rústico');
-INSERT INTO perfis VALUES ('8637564621', 'Rústico');
-INSERT INTO perfis VALUES ('8637564621', 'Espaçoso');
-INSERT INTO perfis VALUES ('8637564621', 'Festivo');
-INSERT INTO perfis VALUES ('4960932100', 'Rústico');
-INSERT INTO perfis VALUES ('4960932100', 'Espaçoso');
-INSERT INTO perfis VALUES ('4960932100', 'Aventureiro');
-INSERT INTO perfis VALUES ('9636810223', 'Familiar');
-INSERT INTO perfis VALUES ('9636810223', 'Rústico');
-INSERT INTO perfis VALUES ('4188415871', 'Rústico');
-INSERT INTO perfis VALUES ('2670703949', 'Aventureiro');
-INSERT INTO perfis VALUES ('2670703949', 'Espaçoso');
-INSERT INTO perfis VALUES ('2813137039', 'Espaçoso');
-INSERT INTO perfis VALUES ('5954115089', 'Espaçoso');
-INSERT INTO perfis VALUES ('7333288555', 'Espaçoso');
-INSERT INTO perfis VALUES ('7333288555', 'Aventureiro');
-INSERT INTO perfis VALUES ('7333288555', 'Rústico');
-INSERT INTO perfis VALUES ('7152964085', 'Espaçoso');
-INSERT INTO perfis VALUES ('7152964085', 'Familiar');
-INSERT INTO perfis VALUES ('7152964085', 'Aventureiro');
-INSERT INTO perfis VALUES ('7152964085', 'Rústico');
+/* CONTRATOS */
+INSERT INTO contrato VALUES (3543, TO_DATE('25-10-2030', 'dd-mm-yyyy'), TO_DATE('25-10-2023', 'dd-mm-yyyy'), '51927985072');
+INSERT INTO contrato VALUES (8272, TO_DATE('25-10-2025', 'dd-mm-yyyy'), TO_DATE('25-05-2016', 'dd-mm-yyyy'), '51927985072');
+INSERT INTO contrato VALUES (6526, TO_DATE('25-10-2022', 'dd-mm-yyyy'), TO_DATE('01-05-2016', 'dd-mm-yyyy'), '51927985072');
+INSERT INTO contrato VALUES (2393, TO_DATE('25-10-2022', 'dd-mm-yyyy'), TO_DATE('01-05-2009', 'dd-mm-yyyy'), '51927985072');
+INSERT INTO contrato VALUES (5932, TO_DATE('25-10-2030', 'dd-mm-yyyy'), TO_DATE('01-09-2009', 'dd-mm-yyyy'), '51927985072');
+INSERT INTO contrato VALUES (5121, TO_DATE('25-10-2030', 'dd-mm-yyyy'), TO_DATE('01-09-2020', 'dd-mm-yyyy'), '51927985072');
+INSERT INTO contrato VALUES (2285, TO_DATE('25-10-2030', 'dd-mm-yyyy'), TO_DATE('25-10-2025', 'dd-mm-yyyy'), '51927985072');
+INSERT INTO contrato VALUES (8105, TO_DATE('25-10-2040', 'dd-mm-yyyy'), TO_DATE('30-10-2018', 'dd-mm-yyyy'), '89712208052');
+INSERT INTO contrato VALUES (8285, TO_DATE('25-10-2040', 'dd-mm-yyyy'), TO_DATE('30-11-2030', 'dd-mm-yyyy'), '89712208052');
+INSERT INTO contrato VALUES (7170, TO_DATE('25-10-2040', 'dd-mm-yyyy'), TO_DATE('30-11-2019', 'dd-mm-yyyy'), '89712208052');
+INSERT INTO contrato VALUES (1464, TO_DATE('25-10-2056', 'dd-mm-yyyy'), TO_DATE('30-11-2049', 'dd-mm-yyyy'), '89712208052');
+INSERT INTO contrato VALUES (6524, TO_DATE('25-10-2056', 'dd-mm-yyyy'), TO_DATE('30-12-2019', 'dd-mm-yyyy'), '89712208052');
+INSERT INTO contrato VALUES (4282, TO_DATE('25-10-2056', 'dd-mm-yyyy'), TO_DATE('30-12-2021', 'dd-mm-yyyy'), '89712208052');
 
 /* Aluga */
 INSERT INTO aluga VALUES ('3993258644', '15069931091', 3543, TO_DATE('25-11-2023', 'dd-mm-yyyy'));
@@ -241,3 +205,39 @@ INSERT INTO parcela VALUES (4282, 2, TO_DATE('10-06-2056', 'dd-mm-yyyy'), 2750.0
 INSERT INTO parcela VALUES (4282, 3, TO_DATE('10-07-2056', 'dd-mm-yyyy'), 2750.00);
 INSERT INTO parcela VALUES (4282, 4, TO_DATE('10-08-2056', 'dd-mm-yyyy'), 2750.00);
 INSERT INTO parcela VALUES (4282, 5, TO_DATE('10-09-2056', 'dd-mm-yyyy'), 2750.00);
+
+/* PERFIS */
+INSERT INTO perfis VALUES ('3993258644', 'Familiar');
+INSERT INTO perfis VALUES ('3993258644', 'Aventureiro');
+INSERT INTO perfis VALUES ('3993258644', 'Espaçoso');
+INSERT INTO perfis VALUES ('3993258644', 'Rústico');
+INSERT INTO perfis VALUES ('6646303088', 'Festivo');
+INSERT INTO perfis VALUES ('6646303088', 'Familiar');
+INSERT INTO perfis VALUES ('3471019961', 'Espaçoso');
+INSERT INTO perfis VALUES ('3471019961', 'Rústico');
+INSERT INTO perfis VALUES ('5504615237', 'Familiar');
+INSERT INTO perfis VALUES ('5504615237', 'Aventureiro');
+INSERT INTO perfis VALUES ('5504615237', 'Rústico');
+INSERT INTO perfis VALUES ('4794574729', 'Familiar');
+INSERT INTO perfis VALUES ('8574634983', 'Aventureiro');
+INSERT INTO perfis VALUES ('8574634983', 'Rústico');
+INSERT INTO perfis VALUES ('8637564621', 'Rústico');
+INSERT INTO perfis VALUES ('8637564621', 'Espaçoso');
+INSERT INTO perfis VALUES ('8637564621', 'Festivo');
+INSERT INTO perfis VALUES ('4960932100', 'Rústico');
+INSERT INTO perfis VALUES ('4960932100', 'Espaçoso');
+INSERT INTO perfis VALUES ('4960932100', 'Aventureiro');
+INSERT INTO perfis VALUES ('9636810223', 'Familiar');
+INSERT INTO perfis VALUES ('9636810223', 'Rústico');
+INSERT INTO perfis VALUES ('4188415871', 'Rústico');
+INSERT INTO perfis VALUES ('2670703949', 'Aventureiro');
+INSERT INTO perfis VALUES ('2670703949', 'Espaçoso');
+INSERT INTO perfis VALUES ('2813137039', 'Espaçoso');
+INSERT INTO perfis VALUES ('5954115089', 'Espaçoso');
+INSERT INTO perfis VALUES ('7333288555', 'Espaçoso');
+INSERT INTO perfis VALUES ('7333288555', 'Aventureiro');
+INSERT INTO perfis VALUES ('7333288555', 'Rústico');
+INSERT INTO perfis VALUES ('7152964085', 'Espaçoso');
+INSERT INTO perfis VALUES ('7152964085', 'Familiar');
+INSERT INTO perfis VALUES ('7152964085', 'Aventureiro');
+INSERT INTO perfis VALUES ('7152964085', 'Rústico');
