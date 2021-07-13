@@ -1,4 +1,18 @@
 /* ENDEREÇOS */
+INSERT INTO endereco VALUES ('54440020', 'Rua da Federal', 'Varzea');
+INSERT INTO endereco VALUES ('50865050', 'Rua Capitão Arruda', 'Pina');
+INSERT INTO endereco VALUES ('50790210', 'Avenida Beira Rio', 'Torre');
+INSERT INTO endereco VALUES ('55643694', 'Rua da Hora', 'Madalena');
+INSERT INTO endereco VALUES ('54430010', 'Rua do Minuto', 'Bairro Novo');
+INSERT INTO endereco VALUES ('50660240', 'Travessa das Dores', 'Piedade');
+INSERT INTO endereco VALUES ('55296540', 'Rua da Lama', 'COHAB');
+INSERT INTO endereco VALUES ('52170000', 'Rua da Saudade', 'Curado IV');
+INSERT INTO endereco VALUES ('52061140', 'Rua da Felicidade', 'Torre');
+INSERT INTO endereco VALUES ('58040030', 'Estrada dos Remédios', 'Derby');
+INSERT INTO endereco VALUES ('58308282', 'Rua Delegado Motinha', 'Jacarepaguá');
+INSERT INTO endereco VALUES ('58703210', 'Travessa Sargento Paulo Guerra', 'Oit');
+INSERT INTO endereco VALUES ('54520697', 'Avenida Manoel Borba', 'Borges'); 
+INSERT INTO endereco VALUES ('56503451', 'Rua do Perfume fresco', 'Centro');
 INSERT INTO endereco VALUES ('50740445', 'Rua Visconde de Barbacena', 'Varzea');
 INSERT INTO endereco VALUES ('51011330', 'Rua João Bandeira de Melo', 'Pina');
 INSERT INTO endereco VALUES ('50910510', 'Rua Professor Pedro Augusto', 'Manaira');
@@ -9,12 +23,11 @@ INSERT INTO endereco VALUES ('51011061', 'Rua Vila Alegre', 'Pina');
 INSERT INTO endereco VALUES ('51160350', 'Rua José da Silva Lucena', 'Imbiribeira');
 INSERT INTO endereco VALUES ('51345520', 'Rua Bom Jardim', 'COHAB');
 INSERT INTO endereco VALUES ('50630974', 'Avenida General San Martin', 'Cordeiro');
-INSERT INTO endereço VALUES ('56789000', 'Alameda das Palmeiras', 'Enseada');
-INSERT INTO endereço VALUES ('90730974', 'Rua dos Jiquiás', 'Belo Novo');
-INSERT INTO endereço VALUES ('50635374', 'Rua das Garças', 'Jardim Molhado');
-INSERT INTO endereço VALUES ('50630984', 'Avenida José Maranhão', 'Paulistinha');
-INSERT INTO endereço VALUES ('56800000', 'Alameda das Araras', 'Enseada');
-
+INSERT INTO endereco VALUES ('56789000', 'Alameda das Palmeiras', 'Enseada');
+INSERT INTO endereco VALUES ('90730974', 'Rua dos Jiquiás', 'Belo Novo');
+INSERT INTO endereco VALUES ('50635374', 'Rua das Garças', 'Jardim Molhado');
+INSERT INTO endereco VALUES ('50630984', 'Avenida José Maranhão', 'Paulistinha');
+INSERT INTO endereco VALUES ('56800000', 'Alameda das Araras', 'Enseada');
 
 /* PESSOAS_PROP */
 INSERT INTO pessoa VALUES ('03176487532', 'Ricardo', TO_DATE('14-03-1962', 'dd-mm-yyyy'), '50740445', 82, 'Apt 201');
@@ -49,6 +62,7 @@ INSERT INTO pessoa VALUES ('92027748032', 'Pietro', TO_DATE('25-10-1974', 'dd-mm
 INSERT INTO pessoa VALUES ('71033122068', 'Maria', TO_DATE('25-10-1980', 'dd-mm-yyyy'), '56800000', 121, 'Casa');
 INSERT INTO pessoa VALUES ('98643394009', 'Fernanda', TO_DATE('25-10-1955', 'dd-mm-yyyy'), '56800000', 000, NULL);
 INSERT INTO pessoa VALUES ('96458502079', 'Núbia', TO_DATE('25-10-1981', 'dd-mm-yyyy'), '56789000', 100, 'Segundo andar');
+INSERT INTO pessoa VALUES ('90019224060', 'Jair', TO_DATE('25-02-1934', 'dd-mm-yyyy'), '51011330', 150, NULL);
 /* PROPRIETÁRIOS */
 INSERT INTO proprietario VALUES ('03176487532', 1726, 1433, 360);
 INSERT INTO proprietario VALUES ('03178903746', 6475, 1433, 360);
@@ -59,7 +73,9 @@ INSERT INTO proprietario VALUES ('79924233654', 9546, 0001, 160);
 INSERT INTO proprietario VALUES ('23547985463', 7562, 0001, 160);
 INSERT INTO proprietario VALUES ('03186390274', 8816, 0001, 160);
 INSERT INTO proprietario VALUES ('03182639412', 3916, 6789, 169);
-INSERT INTO proprietario VALUES ('81335003529', 1840, 6789, 169);
+INSERT INTO proprietario VALUES ('90019224060', 1235, 6789, 169);
+INSERT INTO proprietario VALUES ('48831148312', 1250, 6789, 169);
+
 /* FUNCIONÁRIOS */
 INSERT INTO funcionario VALUES ('37383978099', 2000, 'Supervisor', NULL);
 INSERT INTO funcionario VALUES ('41893520048', 2000, 'Supervisor', NULL);
@@ -70,6 +86,7 @@ INSERT INTO funcionario VALUES ('35454794040', 2200.2, 'Zelador', '41893520048')
 INSERT INTO funcionario VALUES ('99941481091', 1999.1, 'Zelador', '41893520048');
 INSERT INTO funcionario VALUES ('19276748083', 999.1, 'Tesoureiro', '23251067052');
 INSERT INTO funcionario VALUES ('08978954014', 3999.1, 'Tesoureiro', '23251067052');
+
 /* INQUILINOS */
 INSERT INTO inquilino VALUES ('15069931091', 5000, 400);
 INSERT INTO inquilino VALUES ('75477832010', 10000, 350);
@@ -87,10 +104,10 @@ INSERT INTO telefones VALUES ('03178903746', '2131244123');
 INSERT INTO telefones VALUES ('03183642911', '1412321321');
 INSERT INTO telefones VALUES ('58961248956', '2132132132');
 INSERT INTO telefones VALUES ('03198653754', '3213213213');
-INSERT INTO telefones VALUES ('8121251732', '3213213213');
+INSERT INTO telefones VALUES ('99941481091', '3213213213');
 INSERT INTO telefones VALUES ('79924233654', '2133213214');
 INSERT INTO telefones VALUES ('23547985463', '7657567635');
-INSERT INTO telefones VALUES ('8140028922', '7657567635');
+INSERT INTO telefones VALUES ('38120912080', '7657567635');
 INSERT INTO telefones VALUES ('03186390274', '6435524534');
 INSERT INTO telefones VALUES ('03182639412', '1111111111');
 INSERT INTO telefones VALUES ('81335003529', '1231423432');
@@ -110,7 +127,7 @@ INSERT INTO imovel VALUES ('5954115089', 4, 3000.00, '58040030', 278, 'Primeiro 
 INSERT INTO imovel VALUES ('7333288555', 5, 5000.00, '58308282', 648, 'Bloco D', '48831148312');
 INSERT INTO imovel VALUES ('7152964085', 3, 2900.00, '58703210', 12, 'Bloco A', '03182639412');
 INSERT INTO imovel VALUES ('5504615237', 2, 400.00, '54520697', 99, 'Casa', '58961248956');
-INSERT INTO imovel VALUES ('4794574729', 1, 450.00, '56503451', 1010, 'Casa', '96759856791');
+INSERT INTO imovel VALUES ('4794574729', 1, 450.00, '56503451', 1010, 'Casa', '90019224060');
 
 /* CONTRATOS */
 INSERT INTO contrato VALUES (3543, TO_DATE('25-10-2030', 'dd-mm-yyyy'), TO_DATE('25-10-2023', 'dd-mm-yyyy'), '51927985072');
@@ -188,16 +205,17 @@ INSERT INTO parcela VALUES (2285, 3, TO_DATE('04-04-2031', 'dd-mm-yyyy'), 950.00
 INSERT INTO parcela VALUES (2285, 4, TO_DATE('04-05-2031', 'dd-mm-yyyy'), 950.00);
 INSERT INTO parcela VALUES (2285, 5, TO_DATE('04-06-2031', 'dd-mm-yyyy'), 950.00);
 INSERT INTO parcela VALUES (8105, 1, TO_DATE('31-10-2041', 'dd-mm-yyyy'), 850.00);
-INSERT INTO parcela VALUES (8105, 2, TO_DATE('31-11-2041', 'dd-mm-yyyy'), 850.00);
+INSERT INTO parcela VALUES (8105, 2, TO_DATE('30-11-2041', 'dd-mm-yyyy'), 850.00);
 INSERT INTO parcela VALUES (8105, 3, TO_DATE('31-12-2041', 'dd-mm-yyyy'), 850.00);
 INSERT INTO parcela VALUES (8105, 4, TO_DATE('31-01-2042', 'dd-mm-yyyy'), 850.00);
-INSERT INTO parcela VALUES (8105, 5, TO_DATE('31-02-2042', 'dd-mm-yyyy'), 850.00);
+INSERT INTO parcela VALUES (8105, 5, TO_DATE('28-02-2042', 'dd-mm-yyyy'), 850.00);
 INSERT INTO parcela VALUES (8105, 6, TO_DATE('31-03-2042', 'dd-mm-yyyy'), 850.00);
 INSERT INTO parcela VALUES (8285, 1, TO_DATE('25-02-2040', 'dd-mm-yyyy'), 1300.00);
 INSERT INTO parcela VALUES (8285, 2, TO_DATE('25-03-2040', 'dd-mm-yyyy'), 1300.00);
 INSERT INTO parcela VALUES (8285, 3, TO_DATE('25-04-2040', 'dd-mm-yyyy'), 1300.00);
 INSERT INTO parcela VALUES (8285, 4, TO_DATE('25-05-2040', 'dd-mm-yyyy'), 1300.00);
 INSERT INTO parcela VALUES (8285, 5, TO_DATE('25-06-2040', 'dd-mm-yyyy'), 1300.00);
+INSERT INTO parcela VALUES (7170, 1, TO_DATE('02-11-2040', 'dd-mm-yyyy'), 1300.00);
 INSERT INTO parcela VALUES (1464, 1, TO_DATE('25-10-2056', 'dd-mm-yyyy'), 3000.00);
 INSERT INTO parcela VALUES (6524, 1, TO_DATE('25-10-2056', 'dd-mm-yyyy'), 5000.00);
 INSERT INTO parcela VALUES (4282, 1, TO_DATE('10-05-2056', 'dd-mm-yyyy'), 2750.00);

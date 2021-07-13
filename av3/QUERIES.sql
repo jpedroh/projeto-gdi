@@ -10,31 +10,27 @@ UPDATE funcionario SET cpf_supervisor="51927985072" WHERE cpf="23251067052";
 SELECT E.rua, I.numero, I.complemento, I.valor_do_aluguel FROM endereco as E, imovel as I WHERE I.cod_escritura NOT IN (SELECT A.cod_escritura FROM aluga AS A WHERE A.num_contrato NOT IN (SELECT C.numero FROM contrato AS C WHERE data_de_fim < TO_DATE('12-07-2021', 'dd-mm-yyyy')))
 
 /* Listar o numero de contratos fechados e o nome do funcionario que fechou ordenado decrescentemente pela quantidade de contratos fechados */
-SELECT (COUNT(*) as contratos_fechados), E.nome FROM funcionario as F, contrato as C WHERE F.cpf = C.cpf_funcionario GROUP BY (F.cpf) ORDER BY contratos_fechados DESC;
+SELECT (COUNT(*) as contratos_fechados), P.nome FROM funcionario as F, contrato as C INNER JOIN pessoas as P on F.cpf = P.cpf WHERE F.cpf = C.cpf_funcionario GROUP BY (F.cpf) ORDER BY contratos_fechados DESC;
 
 /* Listar nome, CPF e salário do funcionário com o maior salário */
-SELECT MAX(salario) as salario, nome, cpf from funcionario;
+SELECT MAX(salario) as salario, P.nome, F.cpf from funcionario INNER JOIN pessoas as P on F.cpf = P.cpf;
 
 /* Listar nome, CPF e o valor médio das bonificações recebidas por um determinado funcionário */
-SELECT F.nome, F.cpf, AVG(B.valor) as valor_medio FROM funcionario as F, bonificacao as B WHERE B.numero_contrato IN (SELECT C.numero FROM contrato AS C WHERE cpf_funcionario = "23251067052");
+SELECT P.nome, F.cpf, AVG(B.valor) as valor_medio FROM funcionario as F, bonificacao as B INNER JOIN pessoas as P on F.cpf = P.cpf WHERE B.numero_contrato IN (SELECT C.numero FROM contrato AS C WHERE cpf_funcionario = "23251067052");
 
 /* Listar endereco e valor do aluguel dos imoveis que possuem valor de alguel entre 800 e 1200 reais */
 SELECT E.rua, E.bairro, I.numero, I.complemento FROM imovel as I INNER JOIN endereco as E ON I.cep = E.cep WHERE i.valor_do_aluguel BETWEEN 800.00 AND 1200.00;
 
 /* Listar nome, cpf e função dos funcionários que não possuem um supervisor atrelado */
-SELECT nome, cpf, funcao FROM funcionario WHERE cpf_supervisor IS NULL;
+SELECT P.nome, F.cpf, F.funcao FROM funcionario INNER JOIN pessoas as P on F.cpf = P.cpf WHERE cpf_supervisor IS NULL;
 
 /* Listar nome e CPF do proprietário com imóvel de menor aluguel */
 SELECT P.nome, P.cpf FROM pessoa P WHERE P.cpf = (SELECT cpf_proprietario FROM imovel WHERE valor_do_aluguel = (SELECT MIN(valor_do_aluguel) FROM imovel));
-
-/* Listar quanto ganha cada proprietário */
-SELECT SUM(*) as total_gain, P.nome, P.cpf from contrato as C, imovel as I, Pessoa as P WHERE C.cpf_funcionario = I.cpf_funcionario AND P.cpf = C.cpf_funcionario GROUP BY P.cpf ORDER BY total_gain DESC;
 
 /* Listar a quantidade de contratos, o nome e cpf dos funcionarios que fecharam menos de 5 contratos no último mês */
 SELECT COUNT(*) as contratos_fechados, F.nome, F.cpf from funcionario as F, contrato as C WHERE F.cpf = C.cpf_funcionario AND C.data_de_assinatura BETWEEN TO_DATE('01-03-2020', 'dd-mm-yyyy') AND TO_DATE('31-03-2020', 'dd-mm-yyyy') GROUP BY (F.cpf) HAVING contratos_fechados < 5;
 
 /* Selecionar o nome das pessoas que moram em uma rua*/
-
 SELECT p.nome FROM pessoa AS p WHERE p.endereco_cep IN (SELECT e.cep FROM endereco AS e WHERE e.rua LIKE 'Rua%');
 
 /* Listar endereco e valor do aluguel dos imoveis que possuem perfil 'Familiar' ou 'Espaçoso' */

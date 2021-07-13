@@ -1,15 +1,16 @@
-DROP TABLE endereco;
-DROP TABLE pessoa;
-DROP TABLE telefones;
-DROP TABLE proprietario;
-DROP TABLE inquilino;
-DROP TABLE funcionario;
-DROP TABLE imovel;
-DROP TABLE contrato;
-DROP TABLE aluga;
-DROP TABLE bonificacao;
-DROP TABLE parcela;
 DROP TABLE perfis;
+DROP TABLE parcela;
+DROP TABLE bonificacao;
+DROP TABLE aluga;
+DROP TABLE contrato;
+DROP TABLE imovel;
+DROP TABLE funcionario;
+DROP TABLE inquilino;
+DROP TABLE proprietario;
+DROP TABLE telefones;
+DROP TABLE pessoa;
+DROP TABLE endereco;
+DROP SEQUENCE bonificacao_id_sequence;
 
 CREATE TABLE endereco (
     cep varchar2(8),
