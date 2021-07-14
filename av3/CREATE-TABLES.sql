@@ -1,4 +1,4 @@
-DROP TABLE perfis;
+DROP TABLE perfil;
 DROP TABLE parcela;
 DROP TABLE bonificacao;
 DROP TABLE aluga;
@@ -118,9 +118,9 @@ CREATE TABLE parcela (
     CONSTRAINT parcela_check CHECK (valor > 0.0)
 );
 
-CREATE TABLE perfis(
+CREATE TABLE perfil(
     cod_escritura varchar2(20),
     perfil varchar2(20),
-    CONSTRAINT perfis_pkey PRIMARY KEY (cod_escritura, perfil),
-    CONSTRAINT perfis_fkey FOREIGN KEY (cod_escritura) REFERENCES imovel (cod_escritura)
+    CONSTRAINT perfil_pkey PRIMARY KEY (cod_escritura, perfil),
+    CONSTRAINT perfil_fkey FOREIGN KEY (cod_escritura) REFERENCES imovel (cod_escritura)
 );
