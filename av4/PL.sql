@@ -114,26 +114,39 @@ END pode_alugar;
 
 -- PACKAGE
 CREATE OR REPLACE PACKAGE RepasseAluguel AS 
+    PROCEDURE InserirNovosDados(
+        novoCPF pessoa.cpf%TYPE,
+        novoNome pessoa.nome%TYPE,
+        novoDataNas pessoa.data_de_nascimento%TYPE, 
+        novoCep pessoa.endereco_cep%TYPE,
+        novoRua endereco.rua%TYPE,
+        novoBairro endereco.bairro%TYPE,
+        novoNumero pessoa.endereco_numero%TYPE,
+        novoComplemento pessoa.endereco_complemento%TYPE,
+        novaRenda inquilino.renda);
     PROCEDURE AtualizaInformacaoContrato(novoCpf pessoa.cpf%TYPE, antigoCpf pessoa.cpf%TYPE);
     PROCEDURE RemovePessoaEInquilino(cpfAntigo pessoa.cpf%TYPE);
 END RepasseAluguel;
 /
 CREATE OR REPLACE PACKAGE BODY RepasseAluguel AS 
 -- Declaração de variáveis
-DECLARE
-novoCPF := '04321317010';
-novoNome := 'Hercules';
-novoDataNas := TO_DATE('25-10-1978', 'dd-mm-yyyy');
-novoCep := '99345920';
-novoRua := 'Avenida Ribeiro';
-novoBairro := 'Missões';
-novoNumero := 12;
-novoComplemento := 'Segundo andar';
-novaRenda := 10000      ;
 
-INSERT INTO endereco VALUES (novoCep, novoRua, novoBairro);
-INSERT INTO pessoa VALUES (novoCPF, novoNome, novoDataNas, novoCep, novoNumero, novoComplemento);
-INSERT INTO inquilino VALUES (novoCPF, novaRenda, NULL);
+CREATE OR REPLACE PROCEDURE InserirNovosDados(
+    novoCPF pessoa.cpf%TYPE,
+    novoNome pessoa.nome%TYPE,
+    novoDataNas pessoa.data_de_nascimento%TYPE, 
+    novoCep pessoa.endereco_cep%TYPE,
+    novoRua endereco.rua%TYPE,
+    novoBairro endereco.bairro%TYPE,
+    novoNumero pessoa.endereco_numero%TYPE,
+    novoComplemento pessoa.endereco_complemento%TYPE,
+    novaRenda inquilino.renda,    
+) IS 
+BEGIN
+    INSERT INTO endereco VALUES (novoCep, novoRua, novoBairro);
+    INSERT INTO pessoa VALUES (novoCPF, novoNome, novoDataNas, novoCep, novoNumero, novoComplemento);
+    INSERT INTO inquilino VALUES (novoCPF, novaRenda, NULL);
+END InserirNovosDados
 
 CREATE OR REPLACE PROCEDURE AtualizaInformacaoContrato(
     novoCpf pessoa.cpf%TYPE,
@@ -159,4 +172,16 @@ BEGIN
 END RemovePessoaEInquilino;
 END RepasseAluguel;
 
--- Triggers
+-- Trigger de linha para verificar se a data da parcela a ser inserida tem pelo menos 1 mês de diferença da parcela anterior.
+CREATE OR REPLACE TRIGGER addParcela
+BEFORE INSERT OR UPDATE ON parcela
+FOR EACH ROW
+DECLARE 
+    ultimaData date;
+BEGIN 
+    SELECT MAX(data_vencimento) INTO ultimaData FROM parcela WHERE codigo = :NEW.codigo
+    IF SYSDATE - ultimaData <= 30 AND  SYSDATE - ultimaData > 32 THEN
+    RAISE_APPLICATION_ERROR RAISE_APPLICATION_ERROR(-001, 'Data de vencimeno da nova parcela não possui 30 dias de diferença da data de vencimento da última parcela!');
+    END IF;
+END;
+

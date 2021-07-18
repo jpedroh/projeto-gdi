@@ -47,3 +47,15 @@ CREATE VIEW contratos_vencendo AS SELECT C.numero C.data_de_fim FROM contrato AS
 
 /* Selecionar os proprietários que também são inquilino*/
 (SELECT cpf FROM inquilino) INTERSECT (SELECT cpf FROM proprietario)
+
+--Adicionando atributo de descrição em imovel
+ALTER TABLE imovel ADD (descricao varchar2(200));
+
+INSERT INTO endereco VALUES ('56809867', 'Alameda das Aves', 'Torre');
+
+DELETE FROM endereco WHERE cep = '56809867';
+
+--Dá privilégios de acesso a todos os usuários e depois tira
+GRANT SELECT ON pessoa TO '*'@'localhost';
+
+REVOKE SELECT ON pessoa FROM '*'@'localhost';
