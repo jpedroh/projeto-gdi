@@ -1,14 +1,3 @@
---1. USO DO RECORD
-/* Criando registro de funcionário com os campos de  TAXA DE CORRETAGEM, VALOR DO ALUGUEL E CEP DO ENDEREÇO*/
-CREATE TYPE imovel IS RECORD (
-    taxa_de_corretagem integer,
-    valor_do_aluguel decimal(7,2),
-    endereco_cep varchar2(8),
-);
---2. USO DE ESTRUTURA DE DADOS DO TIPO TABLE
-/* Criando uma tabela virtual para os contratos */
-TYPE Tabela_contrato IS TABLE OF contrato.numero%TYPE INDEX BY BINARY_INTEGER;
-
 --3. BLOCO ANÔNIMO
 -- Criação de um bloco anônimo que atualiza o supervisor do funcionário de cpf 51927985072
 DECLARE
@@ -86,14 +75,13 @@ END soma_parcelas;
 -- Função que compara valor máximo desejado de um inquilino com o valor de um imóvel
 -- OBS: Precisa do create type que tá aqui!
 -- OBS2: Talvez esse ELSIF esteja forçando muito a barra, se precisar, posso alterar
-CREATE TYPE T_inquilino IS RECORD (
-    renda inquilino.renda%TYPE,
-    valor_max inquilino.valor_max_desejado%TYPE
-);
-
 CREATE OR REPLACE FUNCTION pode_alugar(cpf inquilino.cpf%TYPE, cod_escritura imovel.cod_escritura%TYPE) RETURN BOOLEAN IS
+    TYPE T_inquilino IS RECORD (
+        renda inquilino.renda%TYPE,
+        valor_max inquilino.valor_max_desejado%TYPE
+    );
     retorno boolean;
-    valores_inquilino T_inquilino%ROWTYPE;
+    valores_inquilino T_inquilino;
     valor_aluguel imovel.valor_do_aluguel%TYPE;
 BEGIN
     SELECT renda, valor_max_desejado INTO valores_inquilino FROM inquilino WHERE inquilino.cpf = cpf;
@@ -113,6 +101,8 @@ END pode_alugar;
 /
 
 -- PACKAGE
+
+/* Criando uma tabela virtual para realizar auditoria das ações realizadas durante a sessão */
 CREATE OR REPLACE PACKAGE RepasseAluguel AS 
     PROCEDURE InserirNovosDados(
         novoCPF pessoa.cpf%TYPE,
@@ -129,47 +119,52 @@ CREATE OR REPLACE PACKAGE RepasseAluguel AS
 END RepasseAluguel;
 /
 CREATE OR REPLACE PACKAGE BODY RepasseAluguel AS 
--- Declaração de variáveis
+    TYPE Tabela_Auditoria_Repasses IS TABLE OF varchar2(50) INDEX BY BINARY_INTEGER;
+    i BINARY_INTEGER := 1;
+    auditoria Tabela_Auditoria_Repasses;
 
-CREATE OR REPLACE PROCEDURE InserirNovosDados(
-    novoCPF pessoa.cpf%TYPE,
-    novoNome pessoa.nome%TYPE,
-    novoDataNas pessoa.data_de_nascimento%TYPE, 
-    novoCep pessoa.endereco_cep%TYPE,
-    novoRua endereco.rua%TYPE,
-    novoBairro endereco.bairro%TYPE,
-    novoNumero pessoa.endereco_numero%TYPE,
-    novoComplemento pessoa.endereco_complemento%TYPE,
-    novaRenda inquilino.renda,    
-) IS 
-BEGIN
-    INSERT INTO endereco VALUES (novoCep, novoRua, novoBairro);
-    INSERT INTO pessoa VALUES (novoCPF, novoNome, novoDataNas, novoCep, novoNumero, novoComplemento);
-    INSERT INTO inquilino VALUES (novoCPF, novaRenda, NULL);
-END InserirNovosDados
+    PROCEDURE InserirNovosDados(
+        novoCPF pessoa.cpf%TYPE,
+        novoNome pessoa.nome%TYPE,
+        novoDataNas pessoa.data_de_nascimento%TYPE, 
+        novoCep pessoa.endereco_cep%TYPE,
+        novoRua endereco.rua%TYPE,
+        novoBairro endereco.bairro%TYPE,
+        novoNumero pessoa.endereco_numero%TYPE,
+        novoComplemento pessoa.endereco_complemento%TYPE,
+        novaRenda inquilino.renda%TYPE
+    ) IS 
+    BEGIN
+        INSERT INTO endereco VALUES (novoCep, novoRua, novoBairro);
+        INSERT INTO pessoa VALUES (novoCPF, novoNome, novoDataNas, novoCep, novoNumero, novoComplemento);
+        INSERT INTO inquilino VALUES (novoCPF, novaRenda, NULL);
+        auditoria(i) := 'Inserindo dados de ' || novoNome;
+        i := i + 1;
+    END InserirNovosDados;
 
-CREATE OR REPLACE PROCEDURE AtualizaInformacaoContrato(
-    novoCpf pessoa.cpf%TYPE,
-    antigoCpf pessoa.cpf%TYPE,
-) IS 
-BEGIN 
-    UPDATE aluga SET cpf_inquilino = novoCpf WHERE cpf_inquilino = antigoCpf;
-    EXCEPTION
-    WHEN no_data_found THEN
-        dbms_output.put_line('CPF não encontrado!');
-END AtualizaInformacaoContrato
+    PROCEDURE AtualizaInformacaoContrato(
+        novoCpf pessoa.cpf%TYPE,
+        antigoCpf pessoa.cpf%TYPE
+    ) IS 
+    BEGIN 
+        UPDATE aluga SET cpf_inquilino = novoCpf WHERE cpf_inquilino = antigoCpf;
+        auditoria(i) := 'Titular do contrato alterado de ' || antigoCpf || ' para ' || novoCpf;
+        i := i + 1;
+        EXCEPTION
+        WHEN no_data_found THEN
+            dbms_output.put_line('CPF não encontrado!');
+    END AtualizaInformacaoContrato;
 
-CREATE OR REPLACE PROCEDURE RemovePessoaEInquilino(cpfAntigo pessoa.cpf%TYPE) IS 
-BEGIN
-    DELETE FROM inquilino WHERE cpf = cpfAntigo;
-    EXCEPTION
-    WHEN no_data_found THEN
-        dbms_output.put_line('CPF não encontrado!');
-    DELETE FROM pessoa WHERE cpf = cpfAntigo;
-    EXCEPTION
-    WHEN no_data_found THEN
-        dbms_output.put_line('CPF não encontrado!');
-END RemovePessoaEInquilino;
+    PROCEDURE RemovePessoaEInquilino(cpfAntigo pessoa.cpf%TYPE) IS 
+    BEGIN
+        DELETE FROM inquilino WHERE cpf = cpfAntigo;
+        auditoria(i) := 'Inquilino ' || cpfAntigo || ' removido da base de dados';
+        i := i + 1;
+        EXCEPTION
+        WHEN no_data_found THEN
+            dbms_output.put_line('CPF não encontrado!');
+        DELETE FROM pessoa WHERE cpf = cpfAntigo;
+    END RemovePessoaEInquilino;
 END RepasseAluguel;
 
 -- Trigger de linha para verificar se a data da parcela a ser inserida tem no máximo um mês de diferença do fim do contrato.
