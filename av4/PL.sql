@@ -93,7 +93,7 @@ CREATE TYPE T_inquilino IS RECORD (
 
 CREATE OR REPLACE FUNCTION pode_alugar(cpf inquilino.cpf%TYPE, cod_escritura imovel.cod_escritura%TYPE) RETURN BOOLEAN IS
     retorno boolean;
-    valores_inquilino T_inquilino;
+    valores_inquilino T_inquilino%ROWTYPE;
     valor_aluguel imovel.valor_do_aluguel%TYPE;
 BEGIN
     SELECT renda, valor_max_desejado INTO valores_inquilino FROM inquilino WHERE inquilino.cpf = cpf;
@@ -172,16 +172,16 @@ BEGIN
 END RemovePessoaEInquilino;
 END RepasseAluguel;
 
--- Trigger de linha para verificar se a data da parcela a ser inserida tem pelo menos 1 mês de diferença da parcela anterior.
+-- Trigger de linha para verificar se a data da parcela a ser inserida tem no máximo um mês de diferença do fim do contrato.
 CREATE OR REPLACE TRIGGER addParcela
 BEFORE INSERT OR UPDATE ON parcela
 FOR EACH ROW
 DECLARE 
-    ultimaData date;
+    data_de_fim_contrato date;
 BEGIN 
-    SELECT MAX(data_vencimento) INTO ultimaData FROM parcela WHERE codigo = :NEW.codigo
-    IF SYSDATE - ultimaData <= 30 AND  SYSDATE - ultimaData > 32 THEN
-    RAISE_APPLICATION_ERROR RAISE_APPLICATION_ERROR(-001, 'Data de vencimeno da nova parcela não possui 30 dias de diferença da data de vencimento da última parcela!');
+    SELECT data_de_fim INTO data_de_fim_contrato FROM contrato WHERE numero = :NEW.numero_contrato;
+    IF :NEW.data_vencimento - data_de_fim_contrato > 30 THEN RAISE_APPLICATION_ERROR(-20011, 'Data de vencimento da nova parcela não pode ser superior a 30 dias apos o termino do contrato.');
     END IF;
 END;
+
 
