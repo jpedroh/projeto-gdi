@@ -184,4 +184,14 @@ BEGIN
     END IF;
 END;
 
-
+-- Trigger de comando para somente realizar inserções e remoções de funcionários até o quinto dia do mês (por razões fiscais)
+CREATE OR REPLACE TRIGGER limitaFuncionario
+BEFORE INSERT OR DELETE ON funcionario
+DECLARE 
+    dia_atual varchar(2);
+BEGIN 
+    dia_atual := EXTRACT(day from sysdate);
+    IF dia_atual NOT IN ('01', '02', '03', '04', '05') THEN
+        RAISE_APPLICATION_ERROR(-20011, 'Inserções e remoções de usuário só podem ser processadas até o quinto dia do mês.');
+    END IF;
+END;
