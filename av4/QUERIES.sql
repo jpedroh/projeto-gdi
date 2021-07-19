@@ -43,7 +43,7 @@ SELECT numero FROM contrato WHERE numero = ANY (SELECT numero_contrato FROM parc
 SELECT E.rua, E.bairro, I.endereco_numero, I.endereco_complemento, I.valor_do_aluguel FROM imovel I, endereco E WHERE I.endereco_cep = E.cep AND valor_do_aluguel < ALL (SELECT valor_do_aluguel FROM endereco E, imovel I WHERE E.cep = I.endereco_cep AND E.bairro = 'Torre');
 
 /* Criar uma visão dos contratos que irão se vencer até o final do ano */
-CREATE VIEW contratos_vencendo AS SELECT C.numero C.data_de_fim FROM contrato AS C WHERE C.data_de_fim BETWEEN TO_DATE('12-07-2021', 'dd-mm-yyyy') AND TO_DATE('31-12-2021', 'dd-mm-yyyy')
+CREATE VIEW contratos_vencendo AS SELECT C.numero, C.data_de_fim FROM contrato AS C WHERE C.data_de_fim BETWEEN TO_DATE('12-07-2021', 'dd-mm-yyyy') AND TO_DATE('31-12-2021', 'dd-mm-yyyy')
 
 /* Selecionar os proprietários que também são inquilino*/
 (SELECT cpf FROM inquilino) INTERSECT (SELECT cpf FROM proprietario)
