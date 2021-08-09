@@ -21,6 +21,13 @@ CREATE OR REPLACE TYPE tp_pessoa AS OBJECT (
     MEMBER FUNCTION getTelefonePrioritario RETURN tp_telefone
 ) NOT FINAL NOT INSTANTIABLE;
 /
+CREATE OR REPLACE TYPE BODY tp_pessoa AS 
+    MEMBER FUNCTION getTelefonePrioritario RETURN tp_telefone IS
+    BEGIN
+        RETURN telefones(0);
+    END;
+END;
+/
 CREATE OR REPLACE TYPE tp_dadosBancarios AS OBJECT(
     agencia number(4),
     conta number(9),
@@ -39,10 +46,23 @@ CREATE OR REPLACE TYPE tp_inquilino UNDER tp_pessoa (
 CREATE OR REPLACE TYPE tp_funcionario UNDER tp_pessoa (
     salario DECIMAL(7, 2),
     funcao varchar2(15),
-    FINAL MEMBER PROCEDURE atribuirSupervisor(supervisor tp_funcionario)
+    FINAL MEMBER PROCEDURE atribuirSupervisor(supervisor tp_funcionario),
+    OVERRIDING MEMBER FUNCTION getTelefonePrioritario RETURN tp_telefone
 );
 /
 ALTER TYPE tp_funcionario ADD ATTRIBUTE (supervisor REF tp_funcionario) CASCADE;
+/
+CREATE OR REPLACE TYPE BODY tp_funcionario AS
+    FINAL MEMBER PROCEDURE atribuirSupervisor(supervisor tp_funcionario) IS
+    BEGIN
+        self.supervisor := supervisor;
+    END;
+    -- Por padrão, o telefone prioritário do funcionário é o telefone corporativo
+    OVERRIDING MEMBER FUNCTION getTelefonePrioritario RETURN tp_telefone IS
+    BEGIN
+        RETURN tp_telefone("4002-8922");
+    END;
+END;
 /
 CREATE OR REPLACE TYPE tp_perfil AS OBJECT (
     descricao varchar2(20)
@@ -61,11 +81,30 @@ CREATE OR REPLACE TYPE tp_imovel AS OBJECT (
     MAP MEMBER FUNCTION imovelPorValor RETURN DECIMAL
 );
 /
+CREATE OR REPLACE TYPE BODY tp_imovel AS
+    FINAL MEMBER PROCEDURE reajustarValor(percentual DECIMAL) IS
+    BEGIN
+        self.valor_do_aluguel := self.valor_do_aluguel * (1 + percentual);
+    END;
+    MAP MEMBER FUNCTION imovelPorValor RETURN DECIMAL
+    BEGIN
+        RETURN valor_do_aluguel;
+    END;
+END;
+/
 CREATE OR REPLACE TYPE tp_parcela AS OBJECT (
     codigo integer,
     valor decimal(7,2),
     data_vencimento DATE,
     MEMBER FUNCTION calcularJuro(taxa_de_juro DECIMAL) RETURN DECIMAL
+);
+/
+CREATE OR REPLACE TYPE BODY tp_parcela AS OBJECT (
+    MEMBER FUNCTION calcularJuro RETURN DECIMAL IS
+        BEGIN
+            RETURN (self.valor*taxa_de_juro) + self.valor;
+        END;
+    END;
 );
 /
 CREATE OR REPLACE TYPE tp_gera AS TABLE OF tp_parcela;
@@ -78,6 +117,13 @@ CREATE OR REPLACE TYPE tp_contrato AS OBJECT (
     MEMBER FUNCTION ehValido RETURN BOOLEAN,
     ORDER MEMBER FUNCTION contratoData(X tp_contrato) RETURN INTEGER
 );
+/
+CREATE OR REPLACE TYPE BODY tp_contrato AS
+    ORDER MEMBER FUNCTION contratoData(X tp_contrato) RETURN INTEGER IS
+    BEGIN
+        return self.data_de_assinature - X.data_de_assinatura
+    END;
+END;
 /
 CREATE OR REPLACE TYPE tp_bonificacao AS OBJECT (
     id integer,
