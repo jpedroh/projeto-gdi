@@ -7,7 +7,7 @@ CREATE OR REPLACE TYPE tp_endereco AS OBJECT (
 );
 /
 CREATE OR REPLACE TYPE tp_telefone AS OBJECT(
-    numero varchar2(8),
+    numero varchar2(8)
 );
 /
 CREATE OR REPLACE TYPE tp_telefones AS VARRAY(5) OF tp_telefone;
@@ -17,7 +17,8 @@ CREATE OR REPLACE TYPE tp_pessoa AS OBJECT (
     nome VARCHAR(50),
     data_de_nascimento date,
     endereco tp_endereco,
-    telefones tp_telefones
+    telefones tp_telefones,
+    MEMBER FUNCTION getTelefonePrioritario RETURN tp_telefone
 ) NOT FINAL NOT INSTANTIABLE;
 /
 CREATE OR REPLACE TYPE tp_dadosBancarios AS OBJECT(
@@ -26,24 +27,25 @@ CREATE OR REPLACE TYPE tp_dadosBancarios AS OBJECT(
     banco number(3)
 );
 /
-CREATE OR REPLACE TYPE tp_proprietario UNDER tp_pessoa AS OBJECT (
+CREATE OR REPLACE TYPE tp_proprietario UNDER tp_pessoa (
     dados_bancarios tp_dadosBancarios
 );
 /
-CREATE OR REPLACE TYPE tp_inquilino UNDER tp_pessoa AS OBJECT (
+CREATE OR REPLACE TYPE tp_inquilino UNDER tp_pessoa (
     renda number(7,2),
-    valor_max_desejado number (4),
+    valor_max_desejado number(4)
 );
 /
-CREATE OR REPLACE TYPE tp_funcionario UNDER tp_pessoa AS OBJECT (
+CREATE OR REPLACE TYPE tp_funcionario UNDER tp_pessoa (
     salario DECIMAL(7, 2),
-    funcao varchar2(15), 
+    funcao varchar2(15),
+    FINAL MEMBER PROCEDURE atribuirSupervisor(supervisor tp_funcionario)
 );
 /
 ALTER TYPE tp_funcionario ADD ATTRIBUTE (supervisor REF tp_funcionario) CASCADE;
 /
 CREATE OR REPLACE TYPE tp_perfil AS OBJECT (
-    descricao varchar2(20),
+    descricao varchar2(20)
 );
 /
 CREATE TYPE tp_nt_perfil AS TABLE OF tp_perfil;
@@ -54,13 +56,16 @@ CREATE OR REPLACE TYPE tp_imovel AS OBJECT (
     valor_do_aluguel decimal(7,2),
     endereco tp_endereco,
     perfil tp_nt_perfil,
-    proprietario REF tp_proprietario
+    proprietario REF tp_proprietario,
+    MEMBER PROCEDURE reajustarValor(percentual DECIMAL),
+    MAP MEMBER FUNCTION imovelPorValor RETURN DECIMAL
 );
 /
 CREATE OR REPLACE TYPE tp_parcela AS OBJECT (
     codigo integer,
     valor decimal(7,2),
-    data_vencimento DATE
+    data_vencimento DATE,
+    MEMBER FUNCTION calcularJuro(taxa_de_juro DECIMAL) RETURN DECIMAL
 );
 /
 CREATE OR REPLACE TYPE tp_gera AS TABLE OF tp_parcela;
@@ -69,7 +74,9 @@ CREATE OR REPLACE TYPE tp_contrato AS OBJECT (
     numero integer,
     data_de_fim date,
     data_de_assinatura date,
-    parcelas tp_gera
+    parcelas tp_gera,
+    MEMBER FUNCTION ehValido RETURN BOOLEAN,
+    ORDER MEMBER FUNCTION contratoData(X tp_contrato) RETURN INTEGER
 );
 /
 CREATE OR REPLACE TYPE tp_bonificacao AS OBJECT (
