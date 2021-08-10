@@ -96,13 +96,24 @@ CREATE OR REPLACE TYPE tp_parcela AS OBJECT (
     codigo integer,
     valor decimal(7,2),
     data_vencimento DATE,
-    MEMBER FUNCTION calcularJuro(taxa_de_juro DECIMAL) RETURN DECIMAL
+    MEMBER FUNCTION calcularJuro(taxa_de_juro DECIMAL) RETURN DECIMAL,
+    CONSTRUCTOR FUNCTION tp_parcela (codigo INTEGER, valor DECIMAL, data_vencimento DATE) RETURN SELF AS RESULT
 );
 /
 CREATE OR REPLACE TYPE BODY tp_parcela AS OBJECT (
     MEMBER FUNCTION calcularJuro RETURN DECIMAL IS
         BEGIN
             RETURN (self.valor*taxa_de_juro) + self.valor;
+        END;
+    END;
+
+    CONSTRUCTOR FUNCTION tp_parcela (codigo INTEGER, valor DECIMAL, data_vencimento DATE) SELF AS RESULT IS
+        BEGIN
+            IF valor < 0.00 THEN
+                RAISE_APPLICATION_ERROR(-20011, 'O valor da parcela não pode ser inferior a 0.00');
+            ELSE
+                self.codigo := codigo; self.valor := valor; self.data_vencimento := data_vencimento; RETURN; 
+            END IF;
         END;
     END;
 );
@@ -114,6 +125,7 @@ CREATE OR REPLACE TYPE tp_contrato AS OBJECT (
     data_de_fim date,
     data_de_assinatura date,
     parcelas tp_gera,
+    funcionario REF tp_funcionario,
     MEMBER FUNCTION ehValido RETURN BOOLEAN,
     ORDER MEMBER FUNCTION contratoData(X tp_contrato) RETURN INTEGER
 );
@@ -121,13 +133,26 @@ CREATE OR REPLACE TYPE tp_contrato AS OBJECT (
 CREATE OR REPLACE TYPE BODY tp_contrato AS
     ORDER MEMBER FUNCTION contratoData(X tp_contrato) RETURN INTEGER IS
     BEGIN
-        return self.data_de_assinature - X.data_de_assinatura
+        return SELF.data_de_assinature - X.data_de_assinatura
     END;
 END;
 /
 CREATE OR REPLACE TYPE tp_bonificacao AS OBJECT (
     id integer,
-    valor decimal(7,2)
+    valor decimal(7,2),
+    CONSTRUCTOR FUNCTION tp_bonificacao (id INTEGER, valor DECIMAL) RETURN SELF AS RESULT
+);
+/
+CREATE OR REPLACE TYPE BODY tp_bonificacao AS OBJECT (
+    CONSTRUCTOR FUNCTION tp_bonificacao (id INTEGER, valor DECIMAL) SELF AS RESULT IS
+        BEGIN
+            IF valor < 0.00 THEN
+                RAISE_APPLICATION_ERROR(-20011, 'O valor da bonificação não pode ser inferior a 0.00');
+            END IF;
+            SELF.id := id;
+            SELF.valor := valor;
+        END;
+    END;
 );
 /
 CREATE OR REPLACE TYPE tp_aluga AS OBJECT (
@@ -137,3 +162,39 @@ CREATE OR REPLACE TYPE tp_aluga AS OBJECT (
     data_aluguel DATE
 );
 /
+CREATE OR REPLACE TYPE tp_celebra AS OBJECT (
+    contrato REF tp_contrato,
+    bonificao REF tp_bonificacao
+);
+/
+
+------------- CRIAÇÃO DAS TABELAS -------------
+CREATE TABLE tb_proprietario OF tp_proprietario(cpf PRIMARY KEY); 
+/
+CREATE TABLE tb_inquilino OF tp_inquilino(cpf PRIMARY KEY);
+/
+CREATE TABLE tb_funcionario OF tp_funcionario(
+    cpf PRIMARY KEY,
+    supervisor SCOPE IS tb_funcionario
+);
+/
+CREATE TABLE tb_imovel OF tp_imovel (
+    cod_escritura PRIMARY KEY,
+    proprietario WITH ROWID REFERENCES tb_proprietario
+) NESTED TABLE lista_perfil STORE AS tb_lista_perfil;
+/
+CREATE TABLE tb_contrato OF tp_contrato(
+    numero PRIMARY KEY,
+    funcionario WITH ROWID REFERENCES tb_funcionario
+);
+/
+CREATE TABLE tb_celebra OF tp_celebra(
+    contrato WITH ROWID REFERENCES tb_contrato,
+    bonificao WITH ROWID REFERENCES tb_bonificacao,
+);
+/
+CREATE TABLE tb_aluga OF tp_aluga (
+    imovel WITH ROWID REFERENCES tb_imovel,
+    inquilino WITH ROWID REFERENCES tb_inquilino,
+    contrato WITH ROWID REFERENCES tb_contrato
+);
