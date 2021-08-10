@@ -164,7 +164,8 @@ CREATE OR REPLACE TYPE tp_aluga AS OBJECT (
 /
 CREATE OR REPLACE TYPE tp_celebra AS OBJECT (
     contrato REF tp_contrato,
-    bonificao REF tp_bonificacao
+    bonificacao REF tp_bonificacao,
+    funcionario REF tp_funcionario
 );
 /
 
@@ -181,16 +182,21 @@ CREATE TABLE tb_funcionario OF tp_funcionario(
 CREATE TABLE tb_imovel OF tp_imovel (
     cod_escritura PRIMARY KEY,
     proprietario WITH ROWID REFERENCES tb_proprietario
-) NESTED TABLE lista_perfil STORE AS tb_lista_perfil;
+) NESTED TABLE perfil STORE AS tb_perfil;
 /
 CREATE TABLE tb_contrato OF tp_contrato(
     numero PRIMARY KEY,
     funcionario WITH ROWID REFERENCES tb_funcionario
+) NESTED TABLE parcelas STORE AS tb_parcela;
+/
+CREATE TABLE tb_bonificacao OF tp_bonificacao (
+    id PRIMARY KEY
 );
 /
 CREATE TABLE tb_celebra OF tp_celebra(
     contrato WITH ROWID REFERENCES tb_contrato,
-    bonificao WITH ROWID REFERENCES tb_bonificacao,
+    funcionario WITH ROWID REFERENCES tb_funcionario,
+    bonificacao WITH ROWID REFERENCES tb_bonificacao
 );
 /
 CREATE TABLE tb_aluga OF tp_aluga (
