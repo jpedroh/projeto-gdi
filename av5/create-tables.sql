@@ -39,8 +39,8 @@ CREATE OR REPLACE TYPE tp_proprietario UNDER tp_pessoa (
 );
 /
 CREATE OR REPLACE TYPE tp_inquilino UNDER tp_pessoa (
-    renda number(7,2),
-    valor_max_desejado number(4)
+    renda DECIMAL(7,2),
+    valor_max_desejado DECIMAL(7,2)
 );
 /
 CREATE OR REPLACE TYPE tp_funcionario UNDER tp_pessoa (
@@ -100,23 +100,23 @@ CREATE OR REPLACE TYPE tp_parcela AS OBJECT (
     CONSTRUCTOR FUNCTION tp_parcela (codigo INTEGER, valor DECIMAL, data_vencimento DATE) RETURN SELF AS RESULT
 );
 /
-CREATE OR REPLACE TYPE BODY tp_parcela AS OBJECT (
-    MEMBER FUNCTION calcularJuro RETURN DECIMAL IS
-        BEGIN
-            RETURN (self.valor*taxa_de_juro) + self.valor;
-        END;
+CREATE OR REPLACE TYPE BODY tp_parcela AS
+    MEMBER FUNCTION calcularJuro(taxa_de_juro DECIMAL) RETURN DECIMAL IS
+    BEGIN
+        RETURN (valor*taxa_de_juro) + valor;
     END;
 
-    CONSTRUCTOR FUNCTION tp_parcela (codigo INTEGER, valor DECIMAL, data_vencimento DATE) SELF AS RESULT IS
-        BEGIN
-            IF valor < 0.00 THEN
-                RAISE_APPLICATION_ERROR(-20011, 'O valor da parcela não pode ser inferior a 0.00');
-            ELSE
-                self.codigo := codigo; self.valor := valor; self.data_vencimento := data_vencimento; RETURN; 
-            END IF;
-        END;
+    CONSTRUCTOR FUNCTION tp_parcela (codigo INTEGER, valor DECIMAL, data_vencimento DATE) RETURN SELF AS RESULT IS
+    BEGIN
+        IF valor < 0.00 THEN
+            RAISE_APPLICATION_ERROR(-20011, 'O valor da parcela não pode ser inferior a 0.00');
+        END IF;
+        SELF.codigo := codigo;
+        SELF.valor := valor;
+        SELF.data_vencimento := data_vencimento;
+        RETURN; 
     END;
-);
+END;
 /
 CREATE OR REPLACE TYPE tp_gera AS TABLE OF tp_parcela;
 /
@@ -143,7 +143,8 @@ CREATE OR REPLACE TYPE tp_bonificacao AS OBJECT (
     CONSTRUCTOR FUNCTION tp_bonificacao (id INTEGER, valor DECIMAL) RETURN SELF AS RESULT
 );
 /
-CREATE OR REPLACE TYPE BODY tp_bonificacao AS OBJECT (
+
+CREATE OR REPLACE TYPE BODY tp_bonificacao AS (
     CONSTRUCTOR FUNCTION tp_bonificacao (id INTEGER, valor DECIMAL) SELF AS RESULT IS
         BEGIN
             IF valor < 0.00 THEN
