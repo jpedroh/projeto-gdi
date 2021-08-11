@@ -143,18 +143,17 @@ CREATE OR REPLACE TYPE tp_bonificacao AS OBJECT (
     CONSTRUCTOR FUNCTION tp_bonificacao (id INTEGER, valor DECIMAL) RETURN SELF AS RESULT
 );
 /
-
-CREATE OR REPLACE TYPE BODY tp_bonificacao AS (
-    CONSTRUCTOR FUNCTION tp_bonificacao (id INTEGER, valor DECIMAL) SELF AS RESULT IS
-        BEGIN
-            IF valor < 0.00 THEN
-                RAISE_APPLICATION_ERROR(-20011, 'O valor da bonificação não pode ser inferior a 0.00');
-            END IF;
-            SELF.id := id;
-            SELF.valor := valor;
-        END;
+CREATE OR REPLACE TYPE BODY tp_bonificacao AS 
+    CONSTRUCTOR FUNCTION tp_bonificacao(id INTEGER, valor DECIMAL) RETURN SELF AS RESULT IS
+    BEGIN
+        IF valor < 0.00 THEN
+            RAISE_APPLICATION_ERROR(-20011, 'O valor da bonificação não pode ser inferior a 0.00');
+        END IF;
+        SELF.id := id;
+        SELF.valor := valor;
+        RETURN;
     END;
-);
+END;
 /
 CREATE OR REPLACE TYPE tp_aluga AS OBJECT (
     imovel REF tp_imovel,
