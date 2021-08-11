@@ -24,7 +24,7 @@ CREATE OR REPLACE TYPE tp_pessoa AS OBJECT (
 CREATE OR REPLACE TYPE BODY tp_pessoa AS 
     MEMBER FUNCTION getTelefonePrioritario RETURN tp_telefone IS
     BEGIN
-        RETURN telefones(0);
+        RETURN telefones(1);
     END;
 END;
 /
@@ -46,21 +46,16 @@ CREATE OR REPLACE TYPE tp_inquilino UNDER tp_pessoa (
 CREATE OR REPLACE TYPE tp_funcionario UNDER tp_pessoa (
     salario DECIMAL(7, 2),
     funcao varchar2(15),
-    FINAL MEMBER PROCEDURE atribuirSupervisor(supervisor tp_funcionario),
     OVERRIDING MEMBER FUNCTION getTelefonePrioritario RETURN tp_telefone
 );
 /
 ALTER TYPE tp_funcionario ADD ATTRIBUTE (supervisor REF tp_funcionario) CASCADE;
 /
 CREATE OR REPLACE TYPE BODY tp_funcionario AS
-    FINAL MEMBER PROCEDURE atribuirSupervisor(supervisor tp_funcionario) IS
-    BEGIN
-        self.supervisor := supervisor;
-    END;
     -- Por padrão, o telefone prioritário do funcionário é o telefone corporativo
     OVERRIDING MEMBER FUNCTION getTelefonePrioritario RETURN tp_telefone IS
     BEGIN
-        RETURN tp_telefone("4002-8922");
+        RETURN tp_telefone('40028922');
     END;
 END;
 /
@@ -77,16 +72,16 @@ CREATE OR REPLACE TYPE tp_imovel AS OBJECT (
     endereco tp_endereco,
     perfil tp_nt_perfil,
     proprietario REF tp_proprietario,
-    MEMBER PROCEDURE reajustarValor(percentual DECIMAL),
+    FINAL MEMBER FUNCTION calcularReajuste(percentual DECIMAL) RETURN DECIMAL,
     MAP MEMBER FUNCTION imovelPorValor RETURN DECIMAL
 );
 /
 CREATE OR REPLACE TYPE BODY tp_imovel AS
-    FINAL MEMBER PROCEDURE reajustarValor(percentual DECIMAL) IS
+    FINAL MEMBER FUNCTION calcularReajuste(percentual DECIMAL) RETURN DECIMAL IS
     BEGIN
-        self.valor_do_aluguel := self.valor_do_aluguel * (1 + percentual);
+        RETURN self.valor_do_aluguel * (1.0 + percentual);
     END;
-    MAP MEMBER FUNCTION imovelPorValor RETURN DECIMAL
+    MAP MEMBER FUNCTION imovelPorValor RETURN DECIMAL IS
     BEGIN
         RETURN valor_do_aluguel;
     END;
@@ -126,14 +121,13 @@ CREATE OR REPLACE TYPE tp_contrato AS OBJECT (
     data_de_assinatura date,
     parcelas tp_gera,
     funcionario REF tp_funcionario,
-    MEMBER FUNCTION ehValido RETURN BOOLEAN,
-    ORDER MEMBER FUNCTION contratoData(X tp_contrato) RETURN INTEGER
+    ORDER MEMBER FUNCTION contratoNumero(X tp_contrato) RETURN INTEGER
 );
 /
 CREATE OR REPLACE TYPE BODY tp_contrato AS
-    ORDER MEMBER FUNCTION contratoData(X tp_contrato) RETURN INTEGER IS
+    ORDER MEMBER FUNCTION contratoNumero(X tp_contrato) RETURN INTEGER IS
     BEGIN
-        return SELF.data_de_assinature - X.data_de_assinatura
+        RETURN SELF.numero - X.numero;
     END;
 END;
 /
