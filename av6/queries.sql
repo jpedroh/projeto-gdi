@@ -48,3 +48,6 @@ SELECT I.endereco.rua, I.endereco.bairro, I.endereco.numero, I.endereco.compleme
 
 /* Listar endereço e valor dos menores alugueis agrupado por bairro */
 SELECT I.endereco.bairro as bairro, MIN(I.valor_do_aluguel) as valor_do_aluguel FROM tb_imovel I GROUP BY I.endereco.bairro;
+
+/* Listar o valor antigo e o novo valor hipotético após um reajuste de 5% no valor do aluguel de todos os imóveis */
+SELECT I.endereco.rua, I.endereco.bairro, I.endereco.numero, I.endereco.complemento, I.valor_do_aluguel, I.calcularReajuste(0.05) as novo_valor_do_aluguel FROM tb_imovel I;

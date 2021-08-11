@@ -43,6 +43,10 @@ INSERT INTO tb_imovel VALUES (tp_imovel('3993258644', 10, 2000.00, tp_endereco('
     tp_perfil('Supermercado')
   ),
 (SELECT REF(I) FROM tb_proprietario I WHERE cpf='03176487532')));
+
+--- USO DO VALUE TROCAR O PERFIL SUPERMERCADO POR SERVIÇOS (uma farmácia abriu próximo ao imóvel)
+UPDATE TABLE(SELECT I.perfil FROM tb_imovel I WHERE I.cod_escritura = '3993258644') P SET VALUE(P)=tp_perfil('Serviços') WHERE P.descricao = 'Supermercado';
+
 INSERT INTO tb_imovel VALUES (tp_imovel('6646303088', 5, 1500.00, tp_endereco('54440020', 'Rua Capitão Arruda', 'Pina', 1019, 'Apartamento'),
   tp_nt_perfil(
     tp_perfil('Familiar'),
