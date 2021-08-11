@@ -252,7 +252,7 @@ INSERT INTO tb_contrato VALUES (tp_contrato(5121, TO_DATE('01-06-2021', 'dd-mm-y
     tp_parcela(6, 1100.00, TO_DATE('01-03-2021', 'dd-mm-yyyy')),
     tp_parcela(7, 1100.00, TO_DATE('01-04-2021', 'dd-mm-yyyy')),
     tp_parcela(8, 1100.00, TO_DATE('01-05-2021', 'dd-mm-yyyy')),
-    tp_parcela(9, 1100.00, TO_DATE('01-06-2021', 'dd-mm-yyyy')),
+    tp_parcela(9, 1100.00, TO_DATE('01-06-2021', 'dd-mm-yyyy'))
   ),
   (SELECT REF (C) FROM tb_funcionario C WHERE cpf = '51927985072')));
 INSERT INTO tb_contrato VALUES (tp_contrato(2285, TO_DATE('01-03-2022', 'dd-mm-yyyy'), TO_DATE('21-08-2020', 'dd-mm-yyyy'),
@@ -275,7 +275,7 @@ INSERT INTO tb_contrato VALUES (tp_contrato(2285, TO_DATE('01-03-2022', 'dd-mm-y
     tp_parcela(16, 1100.00, TO_DATE('01-12-2021', 'dd-mm-yyyy')),
     tp_parcela(17, 1100.00, TO_DATE('01-01-2022', 'dd-mm-yyyy')),
     tp_parcela(18, 1100.00, TO_DATE('01-02-2022', 'dd-mm-yyyy')),
-    tp_parcela(19, 1100.00, TO_DATE('01-03-2022', 'dd-mm-yyyy')),
+    tp_parcela(19, 1100.00, TO_DATE('01-03-2022', 'dd-mm-yyyy'))
   ),
   (SELECT REF (C) FROM tb_funcionario C WHERE cpf = '51927985072')));
 INSERT INTO tb_contrato VALUES (tp_contrato(8105, TO_DATE('01-07-2022', 'dd-mm-yyyy'), TO_DATE('30-10-2021', 'dd-mm-yyyy'),
@@ -288,7 +288,7 @@ INSERT INTO tb_contrato VALUES (tp_contrato(8105, TO_DATE('01-07-2022', 'dd-mm-y
         tp_parcela(6, 1000.00, TO_DATE('01-04-2022', 'dd-mm-yyyy')),
         tp_parcela(7, 1000.00, TO_DATE('01-05-2022', 'dd-mm-yyyy')),
         tp_parcela(8, 1200.00, TO_DATE('01-06-2022', 'dd-mm-yyyy')),
-        tp_parcela(9, 1200.00, TO_DATE('01-07-2022', 'dd-mm-yyyy')),
+        tp_parcela(9, 1200.00, TO_DATE('01-07-2022', 'dd-mm-yyyy'))
   ),
   (SELECT REF (C) FROM tb_funcionario C WHERE cpf = '89712208052')));
 INSERT INTO tb_contrato VALUES (tp_contrato(8285, TO_DATE('01-09-2021', 'dd-mm-yyyy'), TO_DATE('30-10-2020', 'dd-mm-yyyy'),
@@ -304,14 +304,14 @@ INSERT INTO tb_contrato VALUES (tp_contrato(8285, TO_DATE('01-09-2021', 'dd-mm-y
         tp_parcela(9, 1350.00, TO_DATE('01-07-2021', 'dd-mm-yyyy')),
         tp_parcela(10, 1350.00, TO_DATE('01-08-2021', 'dd-mm-yyyy')),
         tp_parcela(11, 1350.00, TO_DATE('01-09-2021', 'dd-mm-yyyy')),
-        tp_parcela(12, 1350.00, TO_DATE('01-10-2021', 'dd-mm-yyyy')),
+        tp_parcela(12, 1350.00, TO_DATE('01-10-2021', 'dd-mm-yyyy'))
   ),
   (SELECT REF (C) FROM tb_funcionario C WHERE cpf = '89712208052')));
 INSERT INTO tb_contrato VALUES (tp_contrato(7170, TO_DATE('01-02-2021', 'dd-mm-yyyy'), TO_DATE('30-11-2020', 'dd-mm-yyyy'),
   tp_gera(
         tp_parcela(1, 1500.00, TO_DATE('01-12-2020', 'dd-mm-yyyy')),
         tp_parcela(2, 1500.00, TO_DATE('01-01-2021', 'dd-mm-yyyy')),
-        tp_parcela(3, 1500.00, TO_DATE('01-02-2021', 'dd-mm-yyyy')),
+        tp_parcela(3, 1500.00, TO_DATE('01-02-2021', 'dd-mm-yyyy'))
   ),
   (SELECT REF (C) FROM tb_funcionario C WHERE cpf = '89712208052')));
 INSERT INTO tb_contrato VALUES (tp_contrato(1464, TO_DATE('01-04-2021', 'dd-mm-yyyy'), TO_DATE('23-11-2020', 'dd-mm-yyyy'),
@@ -320,7 +320,7 @@ INSERT INTO tb_contrato VALUES (tp_contrato(1464, TO_DATE('01-04-2021', 'dd-mm-y
         tp_parcela(2, 2500.00, TO_DATE('01-01-2021', 'dd-mm-yyyy')),
         tp_parcela(3, 2500.00, TO_DATE('01-02-2021', 'dd-mm-yyyy')),
         tp_parcela(4, 2500.00, TO_DATE('01-03-2021', 'dd-mm-yyyy')),
-        tp_parcela(5, 2500.00, TO_DATE('01-04-2021', 'dd-mm-yyyy')),
+        tp_parcela(5, 2500.00, TO_DATE('01-04-2021', 'dd-mm-yyyy'))
   ),
   (SELECT REF (C) FROM tb_funcionario C WHERE cpf = '89712208052')));
 INSERT INTO tb_contrato VALUES (tp_contrato(6524, TO_DATE('01-05-2022', 'dd-mm-yyyy'), TO_DATE('30-12-2020', 'dd-mm-yyyy'), 
@@ -336,7 +336,7 @@ INSERT INTO tb_contrato VALUES (tp_contrato(6524, TO_DATE('01-05-2022', 'dd-mm-y
         tp_parcela(9, 1100.00, TO_DATE('01-09-2022', 'dd-mm-yyyy')),
         tp_parcela(10, 1100.00, TO_DATE('01-10-2022', 'dd-mm-yyyy')),
         tp_parcela(11, 1500.00, TO_DATE('01-11-2022', 'dd-mm-yyyy')),
-        tp_parcela(12, 1500.00, TO_DATE('01-12-2022', 'dd-mm-yyyy')),
+        tp_parcela(12, 1500.00, TO_DATE('01-12-2022', 'dd-mm-yyyy'))
   ),
 (SELECT REF (C) FROM tb_funcionario C WHERE cpf = '89712208052')));
 
@@ -370,14 +370,14 @@ INSERT INTO tb_contrato VALUES (tp_contrato(4282, TO_DATE('01-06-2022', 'dd-mm-y
 DROP SEQUENCE IF EXISTS bonificacao_id_sequence;
 CREATE SEQUENCE bonificacao_id_sequence INCREMENT BY 1 START WITH 1;
 
-INSERT INTO tb_bonificacao VALUES (tp_bonifica(bonificacao_id_sequence.nextval, 500.00));
-INSERT INTO tb_bonificacao VALUES (tp_bonifica(bonificacao_id_sequence.nextval, 350.00));
-INSERT INTO tb_bonificacao VALUES (tp_bonifica(bonificacao_id_sequence.nextval, 200.00));
-INSERT INTO tb_bonificacao VALUES (tp_bonifica(bonificacao_id_sequence.nextval, 100.00));
-INSERT INTO tb_bonificacao VALUES (tp_bonifica(bonificacao_id_sequence.nextval, 50.00));
-INSERT INTO tb_bonificacao VALUES (tp_bonifica(bonificacao_id_sequence.nextval, 60.00));
-INSERT INTO tb_bonificacao VALUES (tp_bonifica(bonificacao_id_sequence.nextval, 100.00));
-INSERT INTO tb_bonificacao VALUES (tp_bonifica(bonificacao_id_sequence.nextval, 80.00));
+INSERT INTO tb_bonificacao VALUES (tp_bonificacao(bonificacao_id_sequence.nextval, 500.00));
+INSERT INTO tb_bonificacao VALUES (tp_bonificacao(bonificacao_id_sequence.nextval, 350.00));
+INSERT INTO tb_bonificacao VALUES (tp_bonificacao(bonificacao_id_sequence.nextval, 200.00));
+INSERT INTO tb_bonificacao VALUES (tp_bonificacao(bonificacao_id_sequence.nextval, 100.00));
+INSERT INTO tb_bonificacao VALUES (tp_bonificacao(bonificacao_id_sequence.nextval, 50.00));
+INSERT INTO tb_bonificacao VALUES (tp_bonificacao(bonificacao_id_sequence.nextval, 60.00));
+INSERT INTO tb_bonificacao VALUES (tp_bonificacao(bonificacao_id_sequence.nextval, 100.00));
+INSERT INTO tb_bonificacao VALUES (tp_bonificacao(bonificacao_id_sequence.nextval, 80.00));
 
 ---------------------------------------------------------------------------------------------------- INSERTS BONIFICAÇÃO ----------------------------------------------------------------------------------------------------
 INSERT INTO tb_celebra VALUES (tp_celebra((SELECT REF (C) FROM tb_contrato C WHERE numero = 3543), (SELECT REF (B) FROM tb_bonificacao B WHERE id = 1),  (SELECT REF (F) FROM tb_funcionario F WHERE cpf = '37383978099')));
